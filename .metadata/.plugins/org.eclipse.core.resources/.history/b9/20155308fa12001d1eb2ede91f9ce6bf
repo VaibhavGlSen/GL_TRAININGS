@@ -1,0 +1,24 @@
+package com.demojdbc;
+import java.sql.*;
+
+public class learnjdbc {
+
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		String url="jdbc:mysql://localhost:3306/users";
+		String uname="root";
+		String pss="root";
+		String query="SELECT NAME FROM users WHERE gender='M'";
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con=DriverManager.getConnection(url,uname,pss);
+		Statement st=con.createStatement();
+		ResultSet rs=st.executeQuery(query);
+		rs.next();
+		String name=rs.getString("NAME");
+		System.out.println(name);
+		st.close();
+		con.close();
+		
+	}
+
+}

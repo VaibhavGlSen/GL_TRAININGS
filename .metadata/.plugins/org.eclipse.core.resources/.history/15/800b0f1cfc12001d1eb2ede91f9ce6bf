@@ -1,0 +1,27 @@
+package com.demojdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class wholetable {
+
+	public static void main(String[] args)  throws Exception {
+		// TODO Auto-generated method stub
+		String url="jdbc:mysql://localhost:3306/userdata";
+		String uname="root";
+		String pss="root";
+		String query="SELECT * FROM users";
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con=DriverManager.getConnection(url,uname,pss);
+		Statement st=con.createStatement();
+		ResultSet rs=st.executeQuery(query);
+		rs.next();
+		String data=rs.getString(1)+" : "+rs.getString(2)+" : "+rs.getInt(3)+" : "+rs.getString(4)+" : "+rs.getString(5)+" : "+rs.getString(6)+" : "+rs.getString(7)+" : "+rs.getString(8);
+		System.out.println("r");
+		st.close();
+		con.close();
+	}
+
+}

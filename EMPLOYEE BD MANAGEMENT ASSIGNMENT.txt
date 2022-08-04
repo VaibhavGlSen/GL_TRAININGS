@@ -1,0 +1,555 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 31
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use employee2;
+Database changed
+mysql> select *from employees;
++--------+----------+----------+------------+------------+----------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary   | commission | dep_id |
++--------+----------+----------+------------+------------+----------+------------+--------+
+|      1 | Vaibhav  | kayling  |         13 | 1991-11-15 | 60000.00 |    1001.00 |      1 |
+|      2 | blaze    | manager  |         13 | 1993-12-05 |  2750.00 |    1001.00 |      2 |
++--------+----------+----------+------------+------------+----------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into employees values(68319,'Kayling','president',,'1991-11-18',6000.0,1001);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','1991-11-18',6000.0,1001)' at line 1
+mysql> insert into employees values(68319,'Kayling','president',null,'1991-11-18',6000.0,1001);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into employees values(68319,'Kayling','president',14,'1991-11-18',6000.0,1001);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into employees values(68319,'Kayling','president',14,'1991-11-18',6000.0,1001,3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values(66928,'Blaze','Manager',68319,'1991-05-01',2750.0,3001,3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values(67832,'Clare','Manager',68319,'1991-06-09',2550.00,1001,4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employees values(65646,'Jonas','Manager',68319,'1991-04-02',2947.00,2001,5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from employees;
++--------+----------+-----------+------------+------------+----------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary   | commission | dep_id |
++--------+----------+-----------+------------+------------+----------+------------+--------+
+|      1 | Vaibhav  | kayling   |         13 | 1991-11-15 | 60000.00 |    1001.00 |      1 |
+|      2 | blaze    | manager   |         13 | 1993-12-05 |  2750.00 |    1001.00 |      2 |
+|  68319 | Kayling  | president |         14 | 1991-11-18 |  6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 |  2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 |  2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 |  2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+----------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> delete from employees where emp_id=1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from employees where emp_id=2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from employees;
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |         14 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update employees set manager_id=6789 where emp_name='Kayling';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from employee;
+ERROR 1146 (42S02): Table 'employee2.employee' doesn't exist
+mysql> select *from employees;
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select salary from employees;
++---------+
+| salary  |
++---------+
+| 6000.00 |
+| 2750.00 |
+| 2550.00 |
+| 2947.00 |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select job_name from employees;
++-----------+
+| job_name  |
++-----------+
+| president |
+| Manager   |
+| Manager   |
+| Manager   |
++-----------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_name,to_char(1.15*salary,'$99,999') AS "Salary" from employees;
+ERROR 1305 (42000): FUNCTION employee2.to_char does not exist
+mysql> select emp_name||' '||job_name AS "Employee & Job" from employees;
++----------------+
+| Employee & Job |
++----------------+
+|              0 |
+|              0 |
+|              0 |
+|              0 |
++----------------+
+4 rows in set, 10 warnings (0.00 sec)
+
+mysql> select emp_name,sal*1.15 "SAL(No of Dollars)" from employees;
+ERROR 1054 (42S22): Unknown column 'sal' in 'field list'
+mysql> select emp_name ,salary*1.15 AS "salary(No of Dollars" from employees;
++----------+----------------------+
+| emp_name | salary(No of Dollars |
++----------+----------------------+
+| Kayling  |            6900.0000 |
+| Blaze    |            3162.5000 |
+| Clare    |            2932.5000 |
+| Jonas    |            3389.0500 |
++----------+----------------------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_name, to_char(salary*1.15,'$') AS "salary(No of Dollar)" from employees;
+ERROR 1305 (42000): FUNCTION employee2.to_char does not exist
+mysql> select concat(emp_name,"&",job) "Emloyee name &job" from employees;
+ERROR 1054 (42S22): Unknown column 'job' in 'field list'
+mysql> select concat(emp_name,"&",job_name) "Emloyee name &job" from employees;
++-------------------+
+| Emloyee name &job |
++-------------------+
+| Kayling&president |
+| Blaze&Manager     |
+| Clare&Manager     |
+| Jonas&Manager     |
++-------------------+
+4 rows in set (0.00 sec)
+
+mysql> select concat(emp_name,"(",job_name,")") "Employees" from employees;
++--------------------+
+| Employees          |
++--------------------+
+| Kayling(president) |
+| Blaze(Manager)     |
+| Clare(Manager)     |
+| Jonas(Manager)     |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,date_format(hire_date,'%M,%d,%Y') "Hire Date" from employees;
++--------+----------+------------------+
+| emp_id | emp_name | Hire Date        |
++--------+----------+------------------+
+|  68319 | Kayling  | November,18,1991 |
+|  66928 | Blaze    | May,01,1991      |
+|  67832 | Clare    | June,09,1991     |
+|  65646 | Jonas    | April,02,1991    |
++--------+----------+------------------+
+4 rows in set (0.01 sec)
+
+mysql> select emp_id,emp_name,salary,date_format(hire_date,'%M,%d,%Y') "to_char" from employees;
++--------+----------+---------+------------------+
+| emp_id | emp_name | salary  | to_char          |
++--------+----------+---------+------------------+
+|  68319 | Kayling  | 6000.00 | November,18,1991 |
+|  66928 | Blaze    | 2750.00 | May,01,1991      |
+|  67832 | Clare    | 2550.00 | June,09,1991     |
+|  65646 | Jonas    | 2947.00 | April,02,1991    |
++--------+----------+---------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_name,length(emp_name) "length"from employees;
++----------+--------+
+| emp_name | length |
++----------+--------+
+| Kayling  |      7 |
+| Blaze    |      5 |
+| Clare    |      5 |
+| Jonas    |      5 |
++----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_name,salary,commission from employees;
++----------+---------+------------+
+| emp_name | salary  | commission |
++----------+---------+------------+
+| Kayling  | 6000.00 |    1001.00 |
+| Blaze    | 2750.00 |    3001.00 |
+| Clare    | 2550.00 |    1001.00 |
+| Jonas    | 2947.00 |    2001.00 |
++----------+---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct(dept_id),job_name from employees;
+ERROR 1054 (42S22): Unknown column 'dept_id' in 'field list'
+mysql> select distinct(dep_id),job_name from employees;
++--------+-----------+
+| dep_id | job_name  |
++--------+-----------+
+|      3 | president |
+|      3 | Manager   |
+|      4 | Manager   |
+|      5 | Manager   |
++--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where dep_id!=2001;
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql>  select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date<'1991-01-01';
+Empty set (0.01 sec)
+
+mysql> select avg(salary) "Average Saalry" from employees where job_name='manager';
++----------------+
+| Average Saalry |
++----------------+
+|    2749.000000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where emp_name="Blaze";
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where commission>salary;
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where salary*1.25>3000;
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_name from employees where length(emp_name)=6;
+Empty set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees date_format(hire_date,'%M')='January';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(hire_date,'%M')='January'' at line 1
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where date_format(hire_date,'%M')='January';
+Empty set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where job_name='Manager';
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager  |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager  |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where floor(Datediff(curdate(),hiredate)/365)>27;
+ERROR 1054 (42S22): Unknown column 'hiredate' in 'where clause'
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where floor(Datediff(curdate(),hire_date)/365)>27;
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where salary<3500;
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager  |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager  |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_name,job_name,salary from employees where job_name='Manager';
++----------+----------+---------+
+| emp_name | job_name | salary  |
++----------+----------+---------+
+| Blaze    | Manager  | 2750.00 |
+| Clare    | Manager  | 2550.00 |
+| Jonas    | Manager  | 2947.00 |
++----------+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date like '1991-%';
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,hire_date,salary where hire_date<'1991-04-01';
+ERROR 1054 (42S22): Unknown column 'emp_id' in 'field list'
+mysql> select emp_id,emp_name,job_name,hire_date,salary from employees where hire_date<'1991-04-01' ;
+Empty set (0.00 sec)
+
+mysql> select emp_name,job_name from employees job_name !='Manager';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '!='Manager'' at line 1
+mysql> select emp_name,job_name from employees where job_name !='Manager';
++----------+-----------+
+| emp_name | job_name  |
++----------+-----------+
+| Kayling  | president |
++----------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date ='1991-05-01';
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,salary,floor(datediff(curdate(),hire_date)/365) "Age" from employees where emp_id=68319;
++--------+----------+---------+------+
+| emp_id | emp_name | salary  | Age  |
++--------+----------+---------+------+
+|  68319 | Kayling  | 6000.00 |   30 |
++--------+----------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,salary,floor(datediff(curdate(),hire_date)/365) "Age" from employees where salary>100;
++--------+----------+---------+------+
+| emp_id | emp_name | salary  | Age  |
++--------+----------+---------+------+
+|  68319 | Kayling  | 6000.00 |   30 |
+|  66928 | Blaze    | 2750.00 |   31 |
+|  67832 | Clare    | 2550.00 |   31 |
+|  65646 | Jonas    | 2947.00 |   31 |
++--------+----------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_name from employees where floor(datediff('1998-12-31',hire_date)/365)=8;
+Empty set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where salary%2=1;
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  65646 | Jonas    | Manager  |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where salary<1000;
+Empty set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date like '%-04-%';
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  65646 | Jonas    | Manager  |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where date_format(hire_date,'%d')<=19;
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where floor(datediff(currdate(),hire_date)/365)>10 and job_name='Manager';
+ERROR 1305 (42000): FUNCTION employee2.currdate does not exist
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where floor(datediff(curdate(),hire_date)/365)>10 and job_name='Manager';
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager  |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager  |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where dep_id in (3,4) and hire_date like '1991-%';
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where dep_id in (1,3);
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where job_name='Manager' and dep_id=3;
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,salary,job_name from employees where salary*12<34000 and commission<salary having job_name='Manager' and dep_id=3;
+ERROR 1054 (42S22): Unknown column 'dep_id' in 'having clause'
+mysql> select emp_id,emp_name,salary,job_name from employees where salary*12<34000 and commission<salary having job_name='Manager' and dep_id=30;
+ERROR 1054 (42S22): Unknown column 'dep_id' in 'having clause'
+mysql> select emp_id,emp_name,salary,job_name from employees where salary*12<34000 and commission<salary and job_name='Manager' and dep_id=3;
+Empty set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where job_name in (clerk,Manager);
+ERROR 1054 (42S22): Unknown column 'clerk' in 'where clause'
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where job_name in ('clerk','Manager');
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager  |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager  |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date not like ('%-02-%');
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date like '1991-%';
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date like '1991-06-%';
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  67832 | Clare    | Manager  |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id,salary*12 "Annual salary" from employees where salary*12 between 24000 and 50000;
++--------+----------+----------+------------+------------+---------+------------+--------+---------------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id | Annual salary |
++--------+----------+----------+------------+------------+---------+------------+--------+---------------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |      33000.00 |
+|  67832 | Clare    | Manager  |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |      30600.00 |
+|  65646 | Jonas    | Manager  |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |      35364.00 |
++--------+----------+----------+------------+------------+---------+------------+--------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date in('1991-05-01','1991-02-20','1991-12-03';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> elect emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date in('1991-05-01','1991-02-20','1991-12-03');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'elect emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id fro' at line 1
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date in('1991-05-01','1991-02-20','1991-12-03');
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where manager_id in (63679,68319,66564,69000);
++--------+----------+----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+----------+------------+------------+---------+------------+--------+
+|  66928 | Blaze    | Manager  |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager  |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager  |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+----------+------------+------------+---------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date>'1991-06-%';
+ERROR 1525 (HY000): Incorrect DATE value: '1991-06-%'
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date>'1991-06-30%';
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date between '1990-01-01' and '1999-12-31';
++--------+----------+-----------+------------+------------+---------+------------+--------+
+| emp_id | emp_name | job_name  | manager_id | hire_date  | salary  | commission | dep_id |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+|  68319 | Kayling  | president |       6789 | 1991-11-18 | 6000.00 |    1001.00 |      3 |
+|  66928 | Blaze    | Manager   |      68319 | 1991-05-01 | 2750.00 |    3001.00 |      3 |
+|  67832 | Clare    | Manager   |      68319 | 1991-06-09 | 2550.00 |    1001.00 |      4 |
+|  65646 | Jonas    | Manager   |      68319 | 1991-04-02 | 2947.00 |    2001.00 |      5 |
++--------+----------+-----------+------------+------------+---------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where dep_id in (1001,2001);
+Empty set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date like '%-02-%' and salary between 1001 and 2000;
+Empty set (0.00 sec)
+
+mysql> select emp_id,emp_name,job_name,manager_id,hire_date,salary,commission,dep_id from employees where hire_date<'1991-01-01' or hire_date>'1991-12-31';
+Empty set (0.00 sec)
