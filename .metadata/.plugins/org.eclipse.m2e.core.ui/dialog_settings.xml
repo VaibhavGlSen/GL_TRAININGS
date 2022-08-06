@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="C:\Users\vaibhav.sen\eclipse-workspace"/>
 			<item value="C:\Users\vaibhav.sen\eclipse-workspace\FirstP\src\main\java\com\vaibhav\AddServlet.java"/>
 		</list>
 		<list key="projectNameTemplate">
@@ -26,10 +27,13 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="com.Vaibhav.FirstMaven"/>
 		</list>
 		<list key="groupId">
+			<item value="com.Vaibhav"/>
 		</list>
 		<list key="artifactId">
+			<item value="FirstMaven"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -61,5 +65,9 @@
 		<list key="version">
 			<item value="0.0.1-SNAPSHOT"/>
 		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
 	</section>
 </section>
