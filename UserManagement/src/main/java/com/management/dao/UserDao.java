@@ -7,22 +7,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.management.model.User;
 
 public class UserDao {
-	
-	private String jdbcURL = "jdbc:mysql://localhost:3306/userdb?useSSL=false";
+	private String jdbcURL = "jdbc:mysql://localhost:3306/em?useSSL=false";
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "root";
-	private static final String INSERT_USERS_SQL = "INSERT INTO users" + "  (name, email, job) VALUES "
+
+	private static final String INSERT_USERS_SQL = "INSERT INTO employee" + "  (name, email, job) VALUES "
 			+ " (?, ?, ?);";
 
-	private static final String SELECT_USER_BY_ID = "select id,name,email,job from users where id =?";
-	private static final String SELECT_ALL_USERS = "select * from users";
-	private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
-	private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, job =? where id = ?;";
+	private static final String SELECT_USER_BY_ID = "select id,name,email,job from employee where id =?";
+	private static final String SELECT_ALL_USERS = "select * from employee";
+	private static final String DELETE_USERS_SQL = "delete from employee where id = ?;";
+	private static final String UPDATE_USERS_SQL = "update employee set name = ?,email= ?, job =? where id = ?;";
 
-	
+	public UserDao() {
+	}
+
 	protected Connection getConnection() {
 		Connection connection = null;
 		try {
@@ -37,11 +40,7 @@ public class UserDao {
 		}
 		return connection;
 	}
-	
-	
-	//insert or create 
-	
-	
+
 	public void insertUser(User user) throws SQLException {
 		System.out.println(INSERT_USERS_SQL);
 		// try-with-resource statement will auto close the connection.
@@ -56,26 +55,7 @@ public class UserDao {
 			printSQLException(e);
 		}
 	}
-	
 
-
-
-
-	public boolean updateUser(User user) throws SQLException {
-		boolean rowUpdated;
-		try (Connection connection = getConnection();
-				PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
-			System.out.println("updated USer:"+statement);
-			statement.setString(1, user.getName());
-			statement.setString(2, user.getEmail());
-			statement.setString(3, user.getJob());
-			statement.setInt(4, user.getId());
-
-			rowUpdated = statement.executeUpdate() > 0;
-		}
-		return rowUpdated;
-	}
-	
 	public User selectUser(int id) {
 		User user = null;
 		// Step 1: Establishing a Connection
@@ -99,7 +79,7 @@ public class UserDao {
 		}
 		return user;
 	}
-	
+
 	public List<User> selectAllUsers() {
 
 		// using try-with-resources to avoid closing resources (boiler plate code)
@@ -126,7 +106,7 @@ public class UserDao {
 		}
 		return users;
 	}
-	
+
 	public boolean deleteUser(int id) throws SQLException {
 		boolean rowDeleted;
 		try (Connection connection = getConnection();
@@ -136,7 +116,21 @@ public class UserDao {
 		}
 		return rowDeleted;
 	}
-	
+
+	public boolean updateUser(User user) throws SQLException {
+		boolean rowUpdated;
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
+			statement.setString(1, user.getName());
+			statement.setString(2, user.getEmail());
+			statement.setString(3, user.getJob());
+			statement.setInt(4, user.getId());
+
+			rowUpdated = statement.executeUpdate() > 0;
+		}
+		return rowUpdated;
+	}
+
 	private void printSQLException(SQLException ex) {
 		for (Throwable e : ex) {
 			if (e instanceof SQLException) {
@@ -152,5 +146,5 @@ public class UserDao {
 			}
 		}
 	}
-	
+
 }

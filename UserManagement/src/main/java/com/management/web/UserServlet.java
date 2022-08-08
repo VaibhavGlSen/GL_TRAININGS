@@ -10,37 +10,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.management.dao.UserDao;
 import com.management.model.User;
-
 
 /**
  * Servlet implementation class UserServlet
  */
-@WebServlet("/UserServlet")
+@WebServlet("/")
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDao userDAO;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserServlet() {
-        this.userDAO=new UserDao();
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public void init() {
+		userDAO = new UserDao();
 	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getServletPath();
