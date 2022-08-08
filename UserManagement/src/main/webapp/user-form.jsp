@@ -4,7 +4,7 @@
         <html>
 
         <head>
-            <title>User Management Application</title>
+            <title>Employee Management Application</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         </head>
 
@@ -13,11 +13,11 @@
             <header>
                 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: blue">
                     <div>
-                        <a href="https://www.javaguides.net" class="navbar-brand"> User Management App </a>
+                        <a href="" class="navbar-brand"> User Management App </a>
                     </div>
 
                     <ul class="navbar-nav">
-                        <li><a href="<%=request.getContextPath()%>/list" class="nav-link">Users</a></li>
+                        <li><a href="<%=request.getContextPath()%>/list" class="nav-link">Employees</a></li>
                     </ul>
                 </nav>
             </header>
@@ -35,10 +35,10 @@
                         <caption>
                             <h2>
                                 <c:if test="${user != null}">
-                                    Edit User
+                                    Edit Employee
                                 </c:if>
                                 <c:if test="${user == null}">
-                                    Add New User
+                                    Add New Employee
                                 </c:if>
                             </h2>
                         </caption>
