@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
@@ -15,7 +16,8 @@ import com.vaibhav.Week2Project.service.ProductService;
 
 
 @RestController
-public class ProductController {
+@RequestMapping("/Admin")
+public class AdminController {
 
 	 @Autowired
 	    private ProductService service;
